@@ -4409,17 +4409,17 @@ const githubData = [
   ]
 
   //   How many total commits were made in all of Steve's events?
-  let totalCommits = 0
+  let totalCommits = 0;
 
+githubData.forEach(steveEvent => {
+  if (steveEvent.type === "PushEvent") {
+    totalCommits += steveEvent.payload.commits.length;
 
-  for(let i = 0; i < githubData.length; i++) {
-      const eventCommit = "githubData[i].payload.commits";
-      
-      totalCommits += eventCommit.length;
-  }
-  
+  };
+});
+
   console.log(`Total commits: ${totalCommits}`);
-  
+
 
   let typePush = 0;
   let typePull = 0;
@@ -4432,10 +4432,10 @@ const githubData = [
 // How many of each event type are there? (PullRequestEvent, PushEvent, etc)
 // List all Github users who submitted a pull request that was approved by Steve.
 for(let i = 0; i < githubData.length; i++) {
-    
+
     let typeId = githubData[i].type;
 
-    
+
     if (typeId === "PushEvent") {
         typePush += 1;
     } else if (typeId === "PullRequestEvent") {
@@ -4467,11 +4467,11 @@ for(let i = 0; i < githubData.length; i++) {
 
     let repoName = githubData[i].repo.name;
         repoListMaster.push(repoName);
- 
+
 
         if (!repoList.includes(repoName)) {
             repoList.push(repoName);
-        } 
+        }
 }
 
 console.log(`The master list of repositories is: ${repoListMaster}`);
@@ -4483,14 +4483,14 @@ eventSetup = 0;
 eventStore = 0;
 
 for( let i = 0; i < githubData.length; i++) {
- 
 
-        if(githubData[i].repo.name = "nashville-software-school/client-side-mastery") {
+
+        if(githubData[i].repo.name === "nashville-software-school/client-side-mastery") {
             eventMastery += 1;
-        } else if (githubData[i].repo.name = "nashville-software-school/bangazon-llc") {
+        } else if (githubData[i].repo.name === "nashville-software-school/bangazon-llc") {
             eventBangazon += 1;
         }
-        else if (githubData[i].repo.name = "stevebrownlee/vps-setup") {
+        else if (githubData[i].repo.name === "stevebrownlee/vps-setup") {
             eventSetup += 1;
         } else {
             eventStore += 1;
@@ -4504,8 +4504,23 @@ console.log(eventSetup);
 console.log(eventStore);
 
 
-
-
 // Which event had the most number of commits?
+let maxCommits = Math.max(eventMastery, eventBangazon, eventSetup, eventStore)
+
+let maxEvent = () => {
+  if (maxCommits === eventMastery){
+    return `nashville-software-school/client-side-mastery`;
+  } else if (maxCommits === eventBangazon) {
+    return `nashville-software-school/bangazon-llc`;
+  } else if (maxCommits === eventSetup) {
+    return `stevebrownlee/vps-setup`;
+  } else {return'nss-day-cohort-27/brenda-snack-cake-store'}
+}
+
+console.log(`The ${maxEvent(maxCommits)} event had the most commits.`)
+
+
+
+
 // Which programming langugages were affected by Steve's events?
 // What programming language was the most affected by Steve's events?
