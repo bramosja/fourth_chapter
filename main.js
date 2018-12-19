@@ -4408,6 +4408,7 @@ const githubData = [
     }
   ]
 
+
   //   How many total commits were made in all of Steve's events?
   let totalCommits = 0;
 
@@ -4519,8 +4520,18 @@ let maxEvent = () => {
 
 console.log(`The ${maxEvent(maxCommits)} event had the most commits.`)
 
-
-
-
 // Which programming langugages were affected by Steve's events?
+steventLangs = {
+  Python: 0,
+  JavaScript: 0
+}
+
+githubData.forEach(steve => {
+  if (steve.type === "PullRequestEvent")
+  steventLangs[steve.payload.pull_request.base.repo.language] += 1
+})
+
+console.log(`Python was used ${steventLangs.Python} times`)
+console.log(`JavaScript was used ${steventLangs.JavaScript} times`)
+
 // What programming language was the most affected by Steve's events?
